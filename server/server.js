@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var app = express();
 var _ = require('lodash');
 var morgan = require('morgan');
+var config = require('./config');
 
 var lionRouter = require('./lions');
 var tigerRouter = require('./tigers');
@@ -16,14 +17,15 @@ app.use(bodyParser.json());
 app.use('/lions', lionRouter);
 app.use('/tigers', tigerRouter);
 
-app.use(function(err, req, res, next) {
-  if (err) {
-    console.log(err.message);
-    res.status(500).send(err);
-  }
+app.use(function (err, req, res, next) {
+   if (err) {
+      console.log(err.message);
+      res.status(500).send(err);
+   }
 });
-
 
 
 app.listen(3000);
 console.log('Listening on port: 3000');
+// console.log(process.env);
+console.log(config.env);
